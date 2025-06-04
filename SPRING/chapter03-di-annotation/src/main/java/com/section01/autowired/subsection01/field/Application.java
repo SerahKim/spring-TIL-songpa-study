@@ -9,7 +9,7 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) {
 
-        /* 컴포넌트 스캰 기능을 활성화시키는 또 다른 방법이다. */
+        /* 컴포넌트 스캔 기능을 활성화시키는 또 다른 방법이다. */
         ApplicationContext context = new AnnotationConfigApplicationContext("com.section01");
 
         BookService bookService = context.getBean("bookServiceField", BookService.class);
