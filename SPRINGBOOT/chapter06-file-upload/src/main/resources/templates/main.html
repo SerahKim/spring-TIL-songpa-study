@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>파일 업로드 하기</h1>
+
+    <!--
+    파일은 get 방식으로 전송 불가능한 이유
+    1. 파일은 용량 자체가 크지만 url의 최대 길이는 255byte를 넘길 수 없기 때문에 전달 불가
+    2. 파일 데이터를 인코딩해서 전달해야 꺼지지 않게 서버에서 해석을 하는데, url에 인코딩하는 방식으로는 파일을 인코딩할 수 없다.
+    -->
+    <h3>single file 업로드</h3>
+    <form action="single-file" method="post" enctype="multipart/form-data">
+        파일 : <input type="file" name="singleFile"><br>
+        파일 설명 : <input type="text" name="singleFileDescription"><br>
+        <input type="submit">
+    </form>
+
+    <h3>multifile 업로드 하기</h3>
+    <form action="multi-file" method="post" enctype="multipart/form-data">
+        파일 : <input type="file" name="multiFile" multiple><br>
+        파일 설명 : <input type="text" name="multiFileDescription"><br>
+        <input type="submit">
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>표현식</h1>
+  <h2>주석</h2>
+  <!--
+    주석의 종류
+    parser-level 주석
+      : parser-level 주석은 정적인 페이지에서는 주석으로 있다가 thymeleaf가 처리될 때 제거되어 클라이언트에게 노출되지 않는다는 장점이 있다.
+    prototype-level 주석
+      : prototype-level 주석은 정적인 페이지에서 주석으로 있다가 thymeleaf 처리 후에는 화면에 보여지게 되는 주석
+  -->
+  <ul>
+    <li>parser-level</li>
+    <!--/* 주석 내용 */-->
+    <li>prototype-level</li>
+    <!--/*/ 주석 내용 /*/-->
+  </ul>
+
+  <h2>표현식 1 - 변수 표현식 ${...}</h2>
+  <p th:text="${ param.title }"></p>
+  <p th:text="${ param.no[0] }"></p>
+  <p th:text="${ param.no[1] }"></p>
+  <!-- 없는 키로 값을 꺼내면 에러 발생 -->
+
+  <h2>표현식 2 - 메시지 표현식 #{...}</h2>
+  <p th:text="#{ message.value }"></p>
+
+  <h2>표현식 3 - 링크 표현식 @{...}</h2>
+  <a th:href="@{/}">메인으로</a>
+
+  <h2>표현식 4 - 선택 변수 표현식 *{...}</h2>
+  <p th:text="${ member.name }"></p>
+  <div th:object="${ member }">
+    <p th:text="*{ age }"></p>
+    <p th:text="*{ gender }"></p>
+    <p th:text="*{ address }"></p>
+  </div>
+
+  <h2>HTML 출력 : th:text, th:utext, th:value</h2>
+  <ul>
+    <li th:text="${ hello }"></li>
+    <li th:utext="${ hello }"></li>
+    <li><input type="text" th:value="타임리프"></li>
+  </ul>
+
+  <h2>리터럴 치환 ||</h2>
+  <h3>'+'를 쓰지 않고 문자열 합치기</h3>
+  <p th:object="${ member }" th:text="|name = '*{ name }'|"></p>
+  <p th:object="${ member }" th:text="|age = '*{ age }'|"></p>
+  <p th:object="${ member }" th:text="|gneder = '*{ gender}'|"></p>
+  <p th:object="${ member }" th:text="|address = '*{ address }'|"></p>
+
+  <h2>th:block</h2>
+  <h3>
+    범위를 지정하고 싶을 떄 사용한다. 불필요한 div 태그를 사용하지 않아도 된다.
+    th:block을 통해 해당 범위에 변수나 객체를 적용하거나
+    조건에 해당되는지에 따라 해당 범위를 보여주거나 보여주지 않을 때 사용할 수 있다.
+  </h3>
+  <th:block th:object="${ member }">
+    <p th:text="*{ age }"?></p>
+  </th:block>
+</body>
+</html>
