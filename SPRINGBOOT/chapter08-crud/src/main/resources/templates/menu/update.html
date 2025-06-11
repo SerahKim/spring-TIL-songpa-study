@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="menu/list :: menuListFragment"></div>
+    <h3>메뉴 수정하기</h3>
+    <form action="/menu/update" method="post">
+        <label>변경하고 싶은 메뉴 코드를 선택해주세요 : </label><input type="number" name="code"><br>
+        <label>메뉴 이름 : </label><input type="text" name="name"><br>
+        <label>메뉴 가격 : </label><input type="text" name="price"><br>
+        <label>카테고리 코드 : </label>
+        <select name="categoryCode" id="categoryCode"></select><br>
+        <label> 판매 상태 : </label>
+        <select name="orderableStatus">
+            <option value="Y">Y</option>
+            <option value="N">N</option>
+        </select>
+        <input type="submit" value="전송">
+    </form>
+    <script>
+        fetch("/menu/category") // /menu/category 요청이 들어왔을 때 비동기적으로 동작하겠다.
+            .then(res => res.json()) // 받은 응답을 json 형태로 받아옴.
+            .then(data => {
+                console.log(data); // 받아 온 데이터를 하나씩 콘솔 로그로 확인
+
+                // 받아 온 데이터를 바탕으로 option 태그를 만듦
+                const $categoryCode = document.getElementById("categoryCode");
+                for (let index in data) {
+                    const $option = document.createElement('option');
+                    $option.value = data[index].code;
+                    $option.textContent = data[index].name;
+                    $categoryCode.appendChild($option);
+                }
+            })
+    </script>
+</body>
+</html>

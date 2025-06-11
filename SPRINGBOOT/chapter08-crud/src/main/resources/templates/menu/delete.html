@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="menu/list :: menuListFragment"></div>
+    <h3>메뉴 삭제하기</h3>
+    <form action="/menu/delete" method="post">
+        <label>삭제하고 싶은 메뉴 코드를 선택해주세요 : </label><input type="number" name="code"><br>
+        <input type="submit" value="전송">
+    </form>
+</body>
+</html>
