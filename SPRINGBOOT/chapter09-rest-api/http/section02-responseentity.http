@@ -1,0 +1,5 @@
+### 전체 회원 조회
+GET localhost:8080/entity/users
+
+### 회원 상세 조회
+GET localhost:8080/entity/users/1
