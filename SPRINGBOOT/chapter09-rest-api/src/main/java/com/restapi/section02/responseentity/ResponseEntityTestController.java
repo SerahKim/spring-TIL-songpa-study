@@ -1,11 +1,13 @@
 package com.restapi.section02.responseentity;
 
+import org.apache.catalina.User;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -65,11 +67,49 @@ public class ResponseEntityTestController {
                 .headers(headers)
                 .body(new ResponseMessage(200, "조회 성공", responseMap));
     }
-    
-//    @PostMapping("/users")
-//    public ResponseEntity<?> registUser(@RequestBody UserDTO newUser) {
-//        System.out.println("newUser = " + newUser);
-//    }
+
+    /* 신규 회원 등록 */
+    @PostMapping("/users")
+    public ResponseEntity<?> registUser(@RequestBody UserDTO newUser) {
+        System.out.println("newUser = " + newUser);
+
+        int lastUserNo = users.get(users.size() - 1).getNo();
+        newUser.setNo(lastUserNo + 1);
+
+        users.add(newUser);
+
+        return ResponseEntity
+                .created(URI.create("/entity/users/" + lastUserNo))
+                .build();
+    }
+
+    /* 기존 회원 수정 */
+    @PutMapping("/users/{userNo}")
+    public ResponseEntity<?> modifyUser(@PathVariable int userNo, @RequestBody UserDTO modifyInfo) {
+           UserDTO founder = users.stream().filter(user -> user.getNo() == userNo)
+                   .collect(Collectors.toList()).get(0);
+
+           founder.setId(modifyInfo.getId());
+           founder.setPwd(modifyInfo.getPwd());
+           founder.setName(modifyInfo.getName());
+
+           return ResponseEntity
+                   .created(URI.create("/entity/users/" + userNo))
+                   .build();
+    }
+
+    /* 기존 회원 삭제 */
+    @DeleteMapping("/users/{userNo}")
+    public ResponseEntity<?> removeUser(@PathVariable int userNo) {
+        UserDTO foundUser = users.stream()
+                .filter(user -> user.getNo() == userNo)
+                .collect(Collectors.toList()).get(0);
 
 
+        users.remove(foundUser);
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }
