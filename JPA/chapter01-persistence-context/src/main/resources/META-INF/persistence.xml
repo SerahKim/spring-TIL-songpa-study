@@ -4,6 +4,7 @@
     <persistence-unit name="jpatest">
         <!-- Spring 환경이 아닌 순수 JPA 환경에서는 엔티티 경로를 잡아줘야 쿼리가 잘 적용된다. -->
         <class>com.section02.crud.Menu</class>
+        <class>com.section03.entity.Menu</class>
         <properties>
             <!-- 데이터 베이스 연결 정보 -->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

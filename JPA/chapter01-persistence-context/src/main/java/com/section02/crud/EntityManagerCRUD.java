@@ -54,5 +54,19 @@ public class EntityManagerCRUD {
         return foundMenu;
     }
 
+    /* 4. 메뉴 삭제하기 */
+    public Long removeAndReturnAllCount(int menuCode) {
+        entityManager = EntityManagerGenerator.getInstance();
+
+        Menu foundMenu = entityManager.find(Menu.class, menuCode);
+
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.remove(foundMenu);
+        transaction.commit();
+
+        return getCount(entityManager);
+    }
+
 
 }
