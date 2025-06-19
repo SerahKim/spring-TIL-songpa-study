@@ -15,4 +15,12 @@ public class MemberRepository {
     public void save(Member member) {
          entityManager.persist(member);
     }
+
+    public String findNameById(String memberId) {
+        // 테이블 이름이 아닌 Entity 이름이 들어간다.
+        // 별칭을 붙여야 한다.
+        String jpql = "SELECT m.memberName FROM entityMember m WHERE m.memberId = '" + memberId + "'";
+
+        return entityManager.createQuery(jpql, String.class).getSingleResult();
+    }
 }

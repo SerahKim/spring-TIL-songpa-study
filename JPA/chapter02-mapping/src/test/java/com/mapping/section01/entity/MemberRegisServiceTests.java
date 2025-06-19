@@ -11,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
 @SpringBootTest
 public class MemberRegisServiceTests {
 
@@ -69,4 +72,35 @@ public class MemberRegisServiceTests {
                 () -> memberRegistService.registMember(newMember)
         );
     }
+
+    @DisplayName("프로퍼티 접근 테스트")
+    @ParameterizedTest
+    @MethodSource("getMember")
+    void testAccessProperty (
+            String memberId, String memberPwd,
+            String memberName, String phone, String address,
+            LocalDateTime enrollDate, MemberRole memberRole, String status
+    ) {
+        //given
+        MemberRegistDTO newMember = new MemberRegistDTO(
+                memberId,
+                memberPwd,
+                memberName,
+                phone,
+                address,
+                enrollDate,
+                memberRole,
+                status
+        );
+
+        //when
+        String registedName = memberRegistService.registMemberAndFindName(newMember);
+
+        //then
+        assertEquals(memberName + "님", registedName);
+
+    }
+
+
+
 }

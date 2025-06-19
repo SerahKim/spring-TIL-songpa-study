@@ -33,4 +33,11 @@ public class MemberRegistService {
         // .save == .commit : EntityManager의 persist 동작
         memberRepository.save(member);
     }
+
+    @Transactional
+    public String registMemberAndFindName(MemberRegistDTO newMember) {
+        registMember(newMember);
+
+        return memberRepository.findNameById(newMember.getMemberId());
+    }
 }
