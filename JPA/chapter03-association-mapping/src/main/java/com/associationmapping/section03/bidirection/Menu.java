@@ -1,9 +1,10 @@
-package com.associationmapping.section01.manytoone;
+package com.associationmapping.section03.bidirection;
 
 import jakarta.persistence.*;
-import com.associationmapping.section01.manytoone.Category;
-
-@Entity(name = "menu_and_category")
+/*
+양방향 관계에서 FK를 가진 쪽이 진짜연관관계, 다른쪽이 가짜연관관계이다.
+*/
+@Entity(name = "bidirection_menu")
 @Table(name = "tbl_menu")
 public class Menu {
 
@@ -23,7 +24,7 @@ public class Menu {
      즉시로딩(EAGER)을 하게 되면 조인하고 있는 카테고리의 내용도 한번에 가져오고
      지연로딩(LAZY)를 하게 되면 필요할 때만 카테고리의 내용을 가져온다.
      */
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "categoryCode")
     private Category category;
     private String orderableStatus;

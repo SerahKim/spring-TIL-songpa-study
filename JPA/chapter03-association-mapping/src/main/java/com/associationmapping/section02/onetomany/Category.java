@@ -15,7 +15,7 @@ public class Category {
     /*
     지연로딩 or 즉시로딩
     기본적으로는 지연 로딩이지만 필요에 따라 즉시 로딩으로 변경할 수 있다.
-    보통은 효율성을 위해 지연 로딩을 추천한다.
+    보통은 효율성을 위해 지연                                   로딩을 추천한다.
     */
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "categoryCode") // PK와 FK의 이름이 다른 경우 FK의 컬럼명으로 써야 한다.
